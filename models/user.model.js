@@ -1,6 +1,8 @@
 "use strict";
 
 import mongoose from "mongoose";
+import config from "../config.js";
+import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -12,4 +14,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true, minlength: 5, maxlength: 512 },
 });
 
+UserSchema.methods.generateAuthToken = function() {
+    return jwt.sign({ _id: this._id }, config.jwtSecret);
+}
 export default mongoose.model('User', UserSchema);
