@@ -3,6 +3,8 @@
 import User from "../models/user.model.js";
 import _ from "lodash";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import config from "../config.js";
 
 
 export async function createUser(req, res) {
@@ -26,7 +28,9 @@ export async function createUser(req, res) {
         try {
             user.password = await hashPassword(user.password);
             await user.save();
-            res.status(200).json(_.pick(user, ['_id', 'name', 'email']))
+
+            const token = jwt.sign({ _id: user?._id }, config.jwtSecret);
+            res.status(200).header('x-auth-token', token).json(_.pick(user, ['_id', 'name', 'email']));
         } catch (err) {
             res.status(500).json(err.message);
         }

@@ -3,5 +3,6 @@
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{@types/bcrypt, @types/beautify, @types/express, @types/joi, @types/joi-password-complexity, @types/joi-phone-number, @types/lodash, @types/mongoose}" />
     <includedPredefinedLibrary name="HTTP Response Handler" />
+    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
