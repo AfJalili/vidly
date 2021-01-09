@@ -4,7 +4,14 @@ import User from "../models/user.model.js";
 import _ from "lodash";
 import bcrypt from "bcrypt";
 
-
+export async function getCurrentUser(req, res) {
+    try {
+        const user = await User.findById(req.user._id).select("-password -__v");
+        res.status(200).send(user);
+    } catch (err) {
+        res.status(500).send("Internal Server Error");
+    }
+}
 
 export async function createUser(req, res) {
 
